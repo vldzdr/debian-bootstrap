@@ -1,0 +1,13 @@
+# Core utilities installed on every system
+
+vim
+sudo
+tree
+curl
+htop
+plocate
+rsync
+
+# Networking tools
+dnsutils
+nmap
