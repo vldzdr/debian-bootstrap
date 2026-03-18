@@ -23,9 +23,28 @@ prompt_for_target_user
 confirm_bootstrap_settings
 
 COMMON_MANIFEST="${SCRIPT_DIR}/manifests/common/apt-packages.txt"
-COMMON_INSTALL_SCRIPT="${SCRIPT_DIR}/scripts/common/install_apt_packages.sh"
+TARGET_MANIFEST="${SCRIPT_DIR}/manifests/${TARGET}/apt-packages.txt"
+APT_INSTALL_SCRIPT="${SCRIPT_DIR}/scripts/common/install_apt_packages.sh"
 
-bash "${COMMON_INSTALL_SCRIPT}" "${COMMON_MANIFEST}"
+if [[ ! -x "${APT_INSTALL_SCRIPT}" ]]; then
+    echo "Missing or non-executable script: ${APT_INSTALL_SCRIPT}"
+    exit 1
+fi
 
 echo
-echo "Common packages installed successfully."
+echo "=== Installing common packages ==="
+bash "${APT_INSTALL_SCRIPT}" "${COMMON_MANIFEST}"
+
+if [[ -f "${TARGET_MANIFEST}" ]]; then
+    echo
+    echo "=== Installing ${TARGET} packages ==="
+    bash "${APT_INSTALL_SCRIPT}" "${TARGET_MANIFEST}"
+else
+    echo
+    echo "No target-specific package manifest found for: ${TARGET}"
+fi
+
+echo
+echo "Bootstrap package installation complete."
+echo "Target: ${TARGET}"
+echo "Target user: ${TARGET_USER}"
