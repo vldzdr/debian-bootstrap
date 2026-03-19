@@ -24,7 +24,7 @@ confirm_bootstrap_settings
 
 COMMON_MANIFEST="${SCRIPT_DIR}/manifests/common/apt-packages.txt"
 TARGET_MANIFEST="${SCRIPT_DIR}/manifests/${TARGET}/apt-packages.txt"
-APT_INSTALL_SCRIPT="${SCRIPT_DIR}/scripts/common/install_apt_packages.sh"
+APT_INSTALL_SCRIPT="${SCRIPT_DIR}/lib/apt.sh"
 
 if [[ ! -x "${APT_INSTALL_SCRIPT}" ]]; then
     echo "Missing or non-executable script: ${APT_INSTALL_SCRIPT}"
@@ -48,3 +48,5 @@ echo
 echo "Bootstrap package installation complete."
 echo "Target: ${TARGET}"
 echo "Target user: ${TARGET_USER}"
+
+#testcomment
