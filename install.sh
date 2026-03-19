@@ -37,6 +37,22 @@ APT_INSTALL_SCRIPT="${SCRIPT_DIR}/lib/apt.sh"
 VIRTUALBOX_BASH_SNIPPET="${SCRIPT_DIR}/configs/virtualbox/bash/bash.bashrc"
 SYSTEM_BASHRC="/etc/bash.bashrc"
 
+TARGET_HOME="/home/${TARGET_USER}"
+TARGET_CONFIG_DIR="${TARGET_HOME}/.config"
+TARGET_OWNER="${TARGET_USER}:${TARGET_USER}"
+
+VBOX_I3_SOURCE="${SCRIPT_DIR}/configs/virtualbox/i3/config"
+VBOX_I3_TARGET="${TARGET_CONFIG_DIR}/i3/config"
+
+VBOX_ROFI_SOURCE="${SCRIPT_DIR}/configs/virtualbox/rofi/config.rasi"
+VBOX_ROFI_TARGET="${TARGET_CONFIG_DIR}/rofi/config.rasi"
+
+VBOX_POLYBAR_CONFIG_SOURCE="${SCRIPT_DIR}/configs/virtualbox/polybar/config.ini"
+VBOX_POLYBAR_CONFIG_TARGET="${TARGET_CONFIG_DIR}/polybar/config.ini"
+
+VBOX_POLYBAR_LAUNCH_SOURCE="${SCRIPT_DIR}/configs/virtualbox/polybar/launch.sh"
+VBOX_POLYBAR_LAUNCH_TARGET="${TARGET_CONFIG_DIR}/polybar/launch.sh"
+
 if [[ ! -x "${APT_INSTALL_SCRIPT}" ]]; then
     echo "Missing or non-executable script: ${APT_INSTALL_SCRIPT}"
     exit 1
@@ -64,6 +80,13 @@ if [[ "${TARGET}" == "virtualbox" ]]; then
         echo
         echo "No virtualbox bash config snippet found at: ${VIRTUALBOX_BASH_SNIPPET}"
     fi
+
+    echo
+    echo "=== Deploying virtualbox user configs ==="
+    deploy_file "${VBOX_I3_SOURCE}" "${VBOX_I3_TARGET}" "${TARGET_OWNER}" "0644"
+    deploy_file "${VBOX_ROFI_SOURCE}" "${VBOX_ROFI_TARGET}" "${TARGET_OWNER}" "0644"
+    deploy_file "${VBOX_POLYBAR_CONFIG_SOURCE}" "${VBOX_POLYBAR_CONFIG_TARGET}" "${TARGET_OWNER}" "0644"
+    deploy_file "${VBOX_POLYBAR_LAUNCH_SOURCE}" "${VBOX_POLYBAR_LAUNCH_TARGET}" "${TARGET_OWNER}" "0755"
 fi
 
 echo

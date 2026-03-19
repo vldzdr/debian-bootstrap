@@ -62,3 +62,33 @@ deploy_managed_block() {
 
     echo "Deployed managed block '${block_name}' into ${target_file}"
 }
+
+deploy_file() {
+    local source_file="$1"
+    local target_file="$2"
+    local owner="${3:-}"
+    local mode="${4:-}"
+
+    if [[ ! -f "${source_file}" ]]; then
+        echo "Source file not found: ${source_file}"
+        return 1
+    fi
+
+    ensure_parent_dir "${target_file}"
+
+    if [[ -f "${target_file}" ]]; then
+        backup_file_once "${target_file}"
+    fi
+
+    cp -f "${source_file}" "${target_file}"
+
+    if [[ -n "${mode}" ]]; then
+        chmod "${mode}" "${target_file}"
+    fi
+
+    if [[ -n "${owner}" ]]; then
+        chown "${owner}" "${target_file}"
+    fi
+
+    echo "Deployed file: ${target_file}"
+}
