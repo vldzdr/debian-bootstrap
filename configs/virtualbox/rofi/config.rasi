@@ -1,0 +1,77 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-window: "Window";
+    drun-display-format: "{name}";
+    font: "monospace 11";
+}
+
+* {
+    bg: #1a1a1a;
+    bg-alt: #2d2d2d;
+    fg: #e8e8e8;
+    fg-alt: #b0b0b0;
+
+    background-color: @bg;
+    text-color: @fg;
+
+    accent: #D70A53;
+    urgent: #D70A53;
+    active: #4a4a4a;
+}
+
+window {
+    transparency: "real";
+    width: 600px;
+    border: 2px;
+    border-color: @accent;
+    border-radius: 0px;
+}
+
+mainbox {
+    padding: 20px;
+}
+
+inputbar {
+    children: [prompt, entry];
+    spacing: 10px;
+    padding: 10px;
+    border-radius: 0px;
+    background-color: @bg-alt;
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder: "Search...";
+    placeholder-color: @fg-alt;
+}
+
+listview {
+    lines: 8;
+    spacing: 5px;
+    padding: 10px 0;
+}
+
+element {
+    padding: 8px;
+    border-radius: 0px;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: @bg;
+}
+
+element-icon {
+    size: 1.5em;
+    margin: 0 10px 0 0;
+}
+
+element-text {
+    vertical-align: 0.5;
