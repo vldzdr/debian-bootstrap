@@ -15,9 +15,6 @@ polybar
 # Icons
 papirus-icon-theme
 
-# Repo management
-extrepo
-
 # Desktop applications
 vlc
 thunderbird
@@ -25,3 +22,4 @@ mcomix
 mixxx
 nicotine
 lutris
+librewolf
