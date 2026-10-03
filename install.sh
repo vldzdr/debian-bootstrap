@@ -26,10 +26,17 @@ COMMON_MANIFEST="${SCRIPT_DIR}/manifests/common/apt-packages.txt"
 TARGET_MANIFEST="${SCRIPT_DIR}/manifests/${TARGET}/apt-packages.txt"
 APT_INSTALL_SCRIPT="${SCRIPT_DIR}/lib/apt.sh"
 TARGET_CONFIG_SCRIPT="${SCRIPT_DIR}/scripts/${TARGET}/configure.sh"
+TARGET_PREPARE_SCRIPT="${SCRIPT_DIR}/scripts/${TARGET}/prepare.sh"
 
 if [[ ! -x "${APT_INSTALL_SCRIPT}" ]]; then
     echo "Missing or non-executable script: ${APT_INSTALL_SCRIPT}"
     exit 1
+fi
+
+if [[ -f "${TARGET_PREPARE_SCRIPT}" ]]; then
+    echo
+    echo "=== Preparing ${TARGET} target ==="
+    bash "${TARGET_PREPARE_SCRIPT}" "${TARGET_USER}"
 fi
 
 echo
