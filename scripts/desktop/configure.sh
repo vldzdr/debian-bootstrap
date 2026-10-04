@@ -12,6 +12,11 @@ TARGET_HOME="/home/${TARGET_USER}"
 TARGET_CONFIG_DIR="${TARGET_HOME}/.config"
 TARGET_OWNER="${TARGET_USER}:${TARGET_USER}"
 
+if getent group docker >/dev/null 2>&1; then
+    usermod -aG docker "${TARGET_USER}"
+    echo "Added ${TARGET_USER} to docker group."
+fi
+
 BASH_SOURCE_FILE="${REPO_DIR}/configs/desktop/bash/bash.bashrc"
 SYSTEM_BASHRC="/etc/bash.bashrc"
 
