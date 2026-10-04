@@ -23,3 +23,9 @@ mixxx
 nicotine
 lutris
 librewolf
+flameshot
+keepassxc
+
+# Containers
+docker.io
+docker-compose

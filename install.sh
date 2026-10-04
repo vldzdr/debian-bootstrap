@@ -27,6 +27,7 @@ TARGET_MANIFEST="${SCRIPT_DIR}/manifests/${TARGET}/apt-packages.txt"
 APT_INSTALL_SCRIPT="${SCRIPT_DIR}/lib/apt.sh"
 TARGET_CONFIG_SCRIPT="${SCRIPT_DIR}/scripts/${TARGET}/configure.sh"
 TARGET_PREPARE_SCRIPT="${SCRIPT_DIR}/scripts/${TARGET}/prepare.sh"
+TARGET_APPS_SCRIPT="${SCRIPT_DIR}/scripts/${TARGET}/install-non-apt.sh"
 
 if [[ ! -x "${APT_INSTALL_SCRIPT}" ]]; then
     echo "Missing or non-executable script: ${APT_INSTALL_SCRIPT}"
@@ -50,6 +51,12 @@ if [[ -f "${TARGET_MANIFEST}" ]]; then
 else
     echo
     echo "No target-specific package manifest found for: ${TARGET}"
+fi
+
+if [[ -f "${TARGET_APPS_SCRIPT}" ]]; then
+    echo
+    echo "=== Installing ${TARGET} applications ==="
+    bash "${TARGET_APPS_SCRIPT}" "${TARGET_USER}"
 fi
 
 if [[ -f "${TARGET_CONFIG_SCRIPT}" ]]; then
